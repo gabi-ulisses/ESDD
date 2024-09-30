@@ -2,34 +2,25 @@
 #include <stdlib.h>
 #define NROVAGAS 3
 
-typedef struct{
+// Declaração de variável heterogênea
+struct estacionamento{ 
     int vetor[NROVAGAS];
     int qtdade;
-}Estacionamento;
-
-Estacionamento criaEstacionamento(){
-    Estacionamento variavel;
-    variavel.qtdade = -1;
-    return variavel;
 };
 
-int estaCheio (Estacionamento variavel){
-    return variavel.qtdade == NROVAGAS-1?1:0;
-}
+struct estacionamento criaEstacionamento();
 
-void mostraEstacionamento(Estacionamento garage){
-    int i;
-    printf("\nCarros estacionados: ");
-    if(!(garage.qtdade < 0)){
-        for (i=0; i<garage.qtdade;i++){
-            printf("%d - ", garage.vetor[i]);
-        }
-        printf("%d", garage.vetor[i]);
-    }
-}
+int estaCheio(struct estacionamento variavel);
+
+void mostraEstacionamento(struct estacionamento garage);
+
+struct estacionamento entraCarro(struct estacionamento garage, int placa);
+
+struct estacionamento saiCarro(struct estacionamento garage);
 
 int main(){
-    Estacionamento garagem;
+
+    struct estacionamento garagem;
 
     garagem = criaEstacionamento();
     garagem = saiCarro(garagem);
@@ -46,11 +37,56 @@ int main(){
     return 0;
 }
 
-
-Estacionamento entraCarro(Estacionamento garage, int placa){
-
+struct estacionamento criaEstacionamento(){
+    struct estacionamento variavel;
+    variavel.qtdade = -1; // Estacionamento vazio
+    return variavel;
 }
 
-Estacionamento saiCarro(Estacionamento garage){
+int estaCheio(struct estacionamento variavel){
+    return variavel.qtdade == NROVAGAS - 1 ? 1 : 0; // Se a quantidade for igual a 2, Estacionamento = Cheio
+}
 
+void mostraEstacionamento(struct estacionamento garage){
+    int i;
+    printf("\nCarros estacionados: ");
+    if (!(garage.qtdade < 0))
+    {
+        for (i = 0; i < garage.qtdade; i++)
+        {
+            printf("%d - ", garage.vetor[i]);
+        }
+        printf("%d", garage.vetor[i]);
+    }
+}
+
+struct estacionamento entraCarro(struct estacionamento garage, int placa){
+
+    if (!estaCheio(garage)){
+        garage.qtdade++;
+        garage.vetor[garage.qtdade] = placa;
+        printf("\nEntrou: %d", placa);
+    }else{
+        printf("\nEstacionamento cheio!");
+    }
+    
+    mostraEstacionamento(garage);
+    return garage;
+    
+}
+
+struct estacionamento saiCarro(struct estacionamento garage){
+    int i;
+    if ( garage.qtdade > -1){
+        printf("\nSaiu: %d", garage.vetor[0]);
+        for ( i = 0; i < NROVAGAS-1; i++){
+            garage.vetor[i] =  garage.vetor[i+1];
+        }
+        garage.qtdade -= 1;
+    }else{
+        printf("\nEstacionamento vazio!");
+    }
+
+    mostraEstacionamento(garage);
+    return garage;
 }

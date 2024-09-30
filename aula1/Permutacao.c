@@ -1,7 +1,7 @@
 /*
 
 (b) Usando a função do item anterior - ContaDigitos.c - faça um programa que lê dois 
-inteiros positivos a e b e responda se a é p.
+inteiros positivos a e b e responda se a é permutação de b.
 
 */
 
