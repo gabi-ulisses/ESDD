@@ -1,3 +1,18 @@
+/*
+
+Considere um estacionamento no centro da cidade. O 
+estacionamento foi implementado em um terreno estreito que 
+permite apenas que os carros sejam estacionados em fila, ou 
+seja, um atrás do outro. 
+
+Além disso, o estacionamento possui acesso a duas ruas, ou 
+seja, é possível atravessar de uma rua a outra por dentro do 
+estacionamento. Assim, o proprietário definiu que a entrada do 
+estacionamento se dá por uma rua e a saída por outra. 
+
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #define NROVAGAS 3
