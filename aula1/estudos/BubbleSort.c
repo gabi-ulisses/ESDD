@@ -10,54 +10,74 @@
         Melhor caso: O(n), ou seja, dados já ordenados.
         Pior caso: O(n²), necessário todas as iterações para ordenar.
 
-    * Não recomendado para grandes conjuntos de dados.
+    * Não recomendado para grandes conjuntos de dados, listas muito grande.
 
 */
 
 
 #include <stdio.h>
+#define TAM 10
 
-void bubbleSort(int V[], int N);
+void preencherVetor(int vetor[]);
+void bubbleSort(int vetor[]);
+void imprimeVetor(int vetor[]);
+
 
 int main() {
-    int V[] = {64, 34, 25, 12, 22, 11, 90};
-    
-    int N = sizeof(V) / sizeof(V[0]);
+    int vetor[TAM];
 
-    bubbleSort(V, N);
+    preencherVetor(vetor);
 
-    printf("Vetor ordenado: \n");
-    for (int i = 0; i < N; i++) {
-        printf("%d ", V[i]); 
-    }
+    printf("\nVetor original: ");
+    imprimeVetor(vetor);
+
+    bubbleSort(vetor);
+
+    printf("\nVetor ordenado: ");
+    imprimeVetor(vetor);
 
     return 0; 
 }
 
+void preencherVetor(int vetor[]){
+    int i;
 
-void bubbleSort(int V[], int N) {
-   
-    int i, continua, aux, fim = N;
+    printf("\nVamos ordenar um vetor!");
+    printf("\nInforme um número para...\n\n");
+
+    for ( i = 0; i < TAM; i++){
+        printf("Posição %d: ", i);
+        scanf("%d", &vetor[i]);
+    }
+}
+
+void imprimeVetor(int vetor[]){
     
-    // O loop do-while vai repetir enquanto houver trocas de elementos.
+    for (int i = 0; i < TAM; i++) {
+        printf("%d ", vetor[i]); 
+    }
+    printf("\n"); 
+
+}
+
+void bubbleSort(int vetor[]) {
+   
+    int i, continua, aux;
+    
+    continua = 1;
+
     do {
-        continua = 0; // Reinicializa 'continua' a cada passagem pelo vetor.
+        continua = 0; 
         
-        // Loop para percorrer o vetor até a posição 'fim-1'.
-        for (i = 0; i < fim - 1; i++) {
-            // Compara os elementos adjacentes.
-            if (V[i] > V[i+1]) {
-                // Se o elemento atual for maior que o próximo, faz a troca.
-                aux = V[i];    // Salva o valor de V[i] em 'aux' temporariamente.
-                V[i] = V[i+1]; // Coloca o valor de V[i+1] em V[i].
-                V[i+1] = aux;  // Coloca o valor de 'aux' (antigo V[i]) em V[i+1].
+        for (i = 0; i < TAM - 1; i++) {
+            if (vetor[i] > vetor[i+1]) { // Se o elemento atual for maior que o próximo, faz a troca.
+
+                aux = vetor[i];    // Salva o valor de vetor[i] em 'aux' temporariamente.
+                vetor[i] = vetor[i+1]; // Coloca o valor de vetor[i+1] em vetor[i].
+                vetor[i+1] = aux;  // Coloca o valor de 'aux' (antigo vetor[i]) em vetor[i+1].
                 
-                // Atualiza 'continua' com o índice da última troca.
-                // Isso indica que ainda há elementos para ordenar.
-                continua = i;
+                continua = 1;
             }
         }
-        fim--; // Diminui o limite superior do vetor, pois os últimos elementos já estão ordenados.
-        
-    } while (continua != 0); // O loop continua até que não haja mais trocas (continua == 0).
+    } while (continua); // O loop continua até que não haja mais trocas (continua == 1).
 }
