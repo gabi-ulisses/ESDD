@@ -36,13 +36,13 @@ int main(){
     // Com 1.000 elementos:
         
         preencherCasoMedio(vetor, tamanho[0]);
-        Sort(vetor, tamanho);
+        Sort(vetor, tamanho[0]);
 
         preencherPiorCaso(vetor, tamanho[0]);
-        Sort(vetor, tamanho);
+        Sort(vetor, tamanho[0]);
 
         preencherMelhorCaso(vetor, tamanho[0]);
-        Sort(vetor, tamanho);
+        Sort(vetor, tamanho[0]);
 
         break;
 
@@ -51,15 +51,15 @@ int main(){
     // Com 100.000 elementos:
 
         preencherCasoMedio(vetor, tamanho[1]);
-        Sort(vetor, tamanho);
+        Sort(vetor, tamanho[1]);
 
 
         preencherPiorCaso(vetor, tamanho[1]);
-        Sort(vetor, tamanho);
+        Sort(vetor, tamanho[1]);
 
 
         preencherMelhorCaso(vetor, tamanho[1]);
-        Sort(vetor, tamanho);
+        Sort(vetor, tamanho[1]);
 
         break;
 
@@ -69,15 +69,15 @@ int main(){
     // Com 1.000.000 elementos:
 
         preencherCasoMedio(vetor, tamanho[2]);
-        Sort(vetor, tamanho);
+        Sort(vetor, tamanho[2]);
 
 
         preencherPiorCaso(vetor, tamanho[2]);
-        Sort(vetor, tamanho);
+        Sort(vetor, tamanho[2]);
 
 
         preencherMelhorCaso(vetor, tamanho[2]);
-        Sort(vetor, tamanho);
+        Sort(vetor, tamanho[2]);
 
         break;
     
