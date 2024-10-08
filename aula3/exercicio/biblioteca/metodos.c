@@ -1,8 +1,8 @@
 #include "metodos.h"
 
-void BubbleSort(int vetor, int size){
+void BubbleSort(int vetor[], int size){
    
-    int i, continua, aux;
+    int i, continua, aux, troca;
     
     continua = 1;
 
@@ -10,6 +10,7 @@ void BubbleSort(int vetor, int size){
         continua = 0; 
         
         for (i = 0; i < size - 1; i++) {
+
             if (vetor[i] > vetor[i+1]) { 
 
                 aux = vetor[i];    
@@ -17,13 +18,20 @@ void BubbleSort(int vetor, int size){
                 vetor[i+1] = aux;  
                 
                 continua = 1;
+
+                troca++;
+
             }
         }
+
     } while (continua); 
 
-}
+    printf("Trocas: %d", troca);
+    printf("Comparações: %d", i);
 
-void InsertSort(int vetor, int size){
+}
+/*
+void InsertSort(int vetor[], int size){
 
 	int i, j, continua, aux;
 
@@ -38,7 +46,7 @@ void InsertSort(int vetor, int size){
 
 }
 
-void SelectionSort(int vetor, int size){
+void SelectionSort(int vetor[], int size){
 
     int i, j, pos_menor, aux;
 	
@@ -56,10 +64,11 @@ void SelectionSort(int vetor, int size){
 
 }
 
-void MergeSort(int vetor, int size){
+void MergeSort(int vetor[], int size){
 
 }
 
-void QuickSort(int vetor, int size){
+void QuickSort(int vetor[], int size){
 
 }
+*/

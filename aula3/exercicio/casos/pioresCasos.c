@@ -1,4 +1,6 @@
-void preencherCasoMedio(int vetor[], int size){
+#include "../biblioteca/metodos.h"
+
+void preencherPiorCaso(int vetor[], int size){
 
     int i;
 
