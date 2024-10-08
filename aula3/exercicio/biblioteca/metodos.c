@@ -2,7 +2,10 @@
 
 void BubbleSort(int vetor[], int size){
    
-    int i, continua, aux, troca;
+    int i, continua, aux;
+	int troca = 0;
+	int comparacoes = 0;
+
     
     continua = 1;
 
@@ -10,6 +13,8 @@ void BubbleSort(int vetor[], int size){
         continua = 0; 
         
         for (i = 0; i < size - 1; i++) {
+
+			comparacoes++;
 
             if (vetor[i] > vetor[i+1]) { 
 
@@ -20,14 +25,17 @@ void BubbleSort(int vetor[], int size){
                 continua = 1;
 
                 troca++;
-
             }
         }
 
     } while (continua); 
 
-    printf("Trocas: %d", troca);
-    printf("Comparações: %d", i);
+    printf("- Método BubbleSort\n\n");
+    printf("Trocas: %d | ", troca);
+    printf("Comparações: %d\n", comparacoes);
+	  for (int i = 0; i < size; i++){
+        printf("-%d-", vetor[i]);
+    }
 
 }
 /*
