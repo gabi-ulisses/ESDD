@@ -1,4 +1,5 @@
 #include "metodos.h"
+#include <time.h>  
 
 void BubbleSort(int vetor[], int size){
    
@@ -6,7 +7,10 @@ void BubbleSort(int vetor[], int size){
 	int troca = 0;
 	int comparacoes = 0;
 
-    
+    // Inicializa a contagem de tempo
+    clock_t inicio, fim;
+    double tempo_gasto;
+
     continua = 1;
 
     do {
@@ -30,12 +34,13 @@ void BubbleSort(int vetor[], int size){
 
     } while (continua); 
 
+	fim = clock(); 
+
     printf("- Método BubbleSort\n\n");
     printf("Trocas: %d | ", troca);
     printf("Comparações: %d\n", comparacoes);
-	  for (int i = 0; i < size; i++){
-        printf("-%d-", vetor[i]);
-    }
+	printf("Tempo de execução: %.5f segundos\n", tempo_gasto);
+
 
 }
 /*
