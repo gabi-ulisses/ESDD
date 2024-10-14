@@ -31,15 +31,15 @@ int main(){
 
             size = tamanho[0];
 
-            printf("\nMelhor caso (%d elementos) ", size);
+            printf("\nMelhor caso:\n\n", size);
             preencherMelhorCaso(vetor, size);
             Sort(vetor, size);
 
-            printf("\nCaso médio  (%d elementos) ", size);
+            printf("\nCaso médio:\n\n", size);
             preencherCasoMedio(vetor, size);
             Sort(vetor, size);
 
-            printf("\nPior caso  (%d elementos) ", size);
+            printf("\nPior caso:\n\n", size);
             preencherPiorCaso(vetor, size);
             Sort(vetor, size);
 
@@ -51,15 +51,15 @@ int main(){
 
             size = tamanho[1];
 
-            printf("\nMelhor caso (%d elementos) ", size);
+            printf("\nMelhor caso\n\n", size);
             preencherMelhorCaso(vetor, size);
             Sort(vetor, size);
 
-            printf("\nCaso médio  (%d elementos) ", size);
+            printf("\nCaso médio\n\n", size);
             preencherCasoMedio(vetor, size);
             Sort(vetor, size);
 
-            printf("\nPior caso (%d elementos) ", size);
+            printf("\nPior caso\n\n", size);
             preencherPiorCaso(vetor, size);
             Sort(vetor, size);
 
@@ -70,15 +70,15 @@ int main(){
         // Com 1.000.000 elementos:
             size = tamanho[2];
 
-            printf("\nMelhor caso (%d elementos) ", size);
+            printf("\nMelhor caso\n\n", size);
             preencherMelhorCaso(vetor, size);
             Sort(vetor, size);
 
-            printf("\nCaso médio  (%d elementos) ", size);
+            printf("\nCaso médio\n\n", size);
             preencherCasoMedio(vetor, size);
             Sort(vetor, size);
             
-            printf("\nPior caso (%d elementos) ", size);
+            printf("\nPior caso\n\n", size);
             preencherPiorCaso(vetor, size);
             Sort(vetor, size);
 
@@ -95,13 +95,20 @@ void Sort(int vetor[], int tamanho){
 
     BubbleSort(vetor, tamanho);
 
-   /* InsertionSort(vetor, tamanho);
+    InsertionSort(vetor, tamanho);
 
-    MergeSort(vetor, tamanho);
+    SelectionSort(vetor, tamanho);
+
+     /* 
+    int inicio = 0;
+    int fim = tamanho - 1;
+
+    MergeSort(vetor, 0, fim, tamanho);
+  
 
     QuickSort(vetor, tamanho);
 
-    SelectionSort(vetor, tamanho);*/
+    */
 }
 
 /*void limparVetor(int vetor[], int tamanho) {
