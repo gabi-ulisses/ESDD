@@ -27,64 +27,60 @@ int main(){
     switch (opcao){
         case 1:
 
-    // Com 1.000 elementos:
+        // Com 1.000 elementos:
 
-        preencherMelhorCaso(vetor, tamanho[0]);
-        size = tamanho[0];
-        printf("\nMelhor caso ");
-        Sort(vetor, size);
+            size = tamanho[0];
 
-        preencherCasoMedio(vetor, tamanho[0]);
-        size = tamanho[0];
-        printf("\nCaso médio ");
-        Sort(vetor, size);
+            printf("\nMelhor caso (%d elementos) ", size);
+            preencherMelhorCaso(vetor, size);
+            Sort(vetor, size);
 
-        preencherPiorCaso(vetor, tamanho[0]);
-        size = tamanho[0];
-        printf("\nPior caso ");
-        Sort(vetor, size);
+            printf("\nCaso médio  (%d elementos) ", size);
+            preencherCasoMedio(vetor, size);
+            Sort(vetor, size);
+
+            printf("\nPior caso  (%d elementos) ", size);
+            preencherPiorCaso(vetor, size);
+            Sort(vetor, size);
 
         break;
 
         case 2:
     
-    // Com 100.000 elementos:
+        // Com 100.000 elementos:
 
-        preencherMelhorCaso(vetor, tamanho[1]);
-        size = tamanho[1];
-        printf("\nMelhor caso ");
-        Sort(vetor, size);
+            size = tamanho[1];
 
-        preencherCasoMedio(vetor, tamanho[1]);
-        size = tamanho[1];
-        printf("\nCaso médio ");
-        Sort(vetor, size);
+            printf("\nMelhor caso (%d elementos) ", size);
+            preencherMelhorCaso(vetor, size);
+            Sort(vetor, size);
 
-        preencherPiorCaso(vetor, tamanho[1]);
-        size = tamanho[1];
-        printf("\nPior caso ");
-        Sort(vetor, size);
+            printf("\nCaso médio  (%d elementos) ", size);
+            preencherCasoMedio(vetor, size);
+            Sort(vetor, size);
+
+            printf("\nPior caso (%d elementos) ", size);
+            preencherPiorCaso(vetor, size);
+            Sort(vetor, size);
 
         break;
 
         case 3:
 
+        // Com 1.000.000 elementos:
+            size = tamanho[2];
 
-    // Com 1.000.000 elementos:
+            printf("\nMelhor caso (%d elementos) ", size);
+            preencherMelhorCaso(vetor, size);
+            Sort(vetor, size);
 
-        preencherMelhorCaso(vetor, tamanho[2]);
-        size = tamanho[2];
-        Sort(vetor, size);
-
-        preencherCasoMedio(vetor, tamanho[2]);
-        size = tamanho[2];
-        printf("\nCaso médio ");
-        Sort(vetor, size);
-
-        preencherPiorCaso(vetor, tamanho[2]);
-        size = tamanho[2];
-        printf("\nPior caso ");
-        Sort(vetor, size);
+            printf("\nCaso médio  (%d elementos) ", size);
+            preencherCasoMedio(vetor, size);
+            Sort(vetor, size);
+            
+            printf("\nPior caso (%d elementos) ", size);
+            preencherPiorCaso(vetor, size);
+            Sort(vetor, size);
 
         break;
     
@@ -108,6 +104,6 @@ void Sort(int vetor[], int tamanho){
     SelectionSort(vetor, tamanho);*/
 }
 
-void limparVetor(int vetor[], int tamanho) {
+/*void limparVetor(int vetor[], int tamanho) {
     memset(vetor, 0, tamanho * sizeof(int));
-}
+}*/

@@ -4,14 +4,16 @@
 void BubbleSort(int vetor[], int size){
    
     int i, continua, aux;
-	int troca = 0;
-	int comparacoes = 0;
+	long long int troca = 0; //
+	long long int comparacoes = 0;
 
     // Inicializa a contagem de tempo
-    clock_t inicio, fim;
+    clock_t inicio = 0, fim = 0;
     double tempo_gasto;
 
     continua = 1;
+
+	inicio = clock();
 
     do {
         continua = 0; 
@@ -36,11 +38,12 @@ void BubbleSort(int vetor[], int size){
 
 	fim = clock(); 
 
-    printf("- Método BubbleSort\n\n");
-    printf("Trocas: %d | ", troca);
-    printf("Comparações: %d\n", comparacoes);
-	printf("Tempo de execução: %.5f segundos\n", tempo_gasto);
+	tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
 
+    printf("- Método BubbleSort\n\n");
+    printf("Trocas: %lld | ", troca);
+    printf("Comparações: %lld | ", comparacoes);
+	printf("Tempo de execução: %.5f segundos\n\n", tempo_gasto);
 
 }
 /*
