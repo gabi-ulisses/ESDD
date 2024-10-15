@@ -48,75 +48,77 @@ void BubbleSort(int vetor[], int size){
 }
 
 void InsertionSort(int vetor[], int size){
-
-	int i, j, aux;
-	long long int troca = 0;
-	long long int comparacoes = 0;
+    int i, j, aux;
+    long long int troca = 0;
+    long long int comparacoes = 0;
 
     // Inicializa a contagem de tempo
     clock_t inicio = 0, fim = 0;
     double tempo_gasto;
 
-	inicio = clock();
+    inicio = clock();
 
-	for(i = 1; i < size; i++){
-		aux = vetor[i];
-		
-		for(j = i - 1; j >= 0 && vetor[j] > aux; j--){
-			vetor[j+1] = vetor[j];
-			troca++;
-		}
-		vetor[j+1] = aux;
-		comparacoes++;
-	}
+    for(i = 1; i < size; i++){
+        aux = vetor[i];
+        for(j = i - 1; j >= 0; j--){
+            comparacoes++;
+            if (vetor[j] > aux){
+                vetor[j+1] = vetor[j];
+                troca++;
+            } else {
+                break;
+            }
+        }
+        vetor[j+1] = aux;
+    }
 
-	fim = clock(); 
+    fim = clock(); 
 
-	tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
+    tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
 
     printf("Método Insertion Sort - ");
     printf("Trocas: %lld | ", troca);
     printf("Comparações: %lld | ", comparacoes);
-	printf("Tempo de execução: %.5f segundos\n\n", tempo_gasto);
-
+    printf("Tempo de execução: %.5f segundos\n\n", tempo_gasto);
 }
 
 void SelectionSort(int vetor[], int size){
-
     int i, j, pos_menor, aux;
-	long long int troca = 0; //
-	long long int comparacoes = 0;
+    long long int troca = 0;
+    long long int comparacoes = 0;
 
     // Inicializa a contagem de tempo
     clock_t inicio = 0, fim = 0;
     double tempo_gasto;
 
-	inicio = clock();
-	
-	for(i=0; i < size; i++){
-		pos_menor = i;
-		for(j=i+1; j < size; j++){
-			if(vetor[j] < vetor[pos_menor]){
-				pos_menor = j;
-				troca++;
-			}
-		comparacoes++;
-		}
-		aux = vetor[i];
-		vetor[i] = vetor[pos_menor];
-		vetor[pos_menor] = aux;
-	}
+    inicio = clock();
 
-	fim = clock(); 
+    for(i = 0; i < size - 1; i++){
+        pos_menor = i;
+        for(j = i + 1; j < size; j++){
+            comparacoes++;
+            if(vetor[j] < vetor[pos_menor]){
+                pos_menor = j;
+            }
+        }
+        if (pos_menor != i){
+            aux = vetor[i];
+            vetor[i] = vetor[pos_menor];
+            vetor[pos_menor] = aux;
+            troca++;
+        }
+    }
 
-	tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
+    fim = clock(); 
+
+    tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
 
     printf("Método Selection Sort - ");
     printf("Trocas: %lld | ", troca);
     printf("Comparações: %lld | ", comparacoes);
-	printf("Tempo de execução: %.5f segundos\n\n", tempo_gasto);
-
+    printf("Tempo de execução: %.5f segundos\n\n", tempo_gasto);
 }
+
 
 /*
 void MergeSort(int vetor[], int inicio, int fim, int size){
