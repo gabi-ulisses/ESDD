@@ -8,6 +8,7 @@
 
 void Sort(int vetor[], int tamanho);
 void limparVetor(int vetor[], int tamanho);
+void copiaVetor(int origem[], int destino[], int size);
 
 int main(){
     
@@ -91,26 +92,41 @@ int main(){
 }
 
 
-void Sort(int vetor[], int tamanho){
+void Sort(int vetor[], int size) {
+int vetorCopia[size];
 
-    BubbleSort(vetor, tamanho);
+// BubbleSort
+copiaVetor(vetor, vetorCopia, size);
+printf("Executando BubbleSort...\n");
+BubbleSort(vetorCopia, size);
 
-    InsertionSort(vetor, tamanho);
+// InsertionSort
+copiaVetor(vetor, vetorCopia, size);
+printf("Executando InsertionSort...\n");
+InsertionSort(vetorCopia, size);
 
-    SelectionSort(vetor, tamanho);
+// SelectionSort
+copiaVetor(vetor, vetorCopia, size);
+printf("Executando SelectionSort...\n");
+SelectionSort(vetorCopia, size);
 
-     /* 
-    int inicio = 0;
-    int fim = tamanho - 1;
+// MergeSort
+copiaVetor(vetor, vetorCopia, size);
+printf("Executando MergeSort...\n");
+MergeSort(vetorCopia, 0, size - 1, size);
 
-    MergeSort(vetor, 0, fim, tamanho);
-  
-
-    QuickSort(vetor, tamanho);
-
-    */
+// QuickSort
+copiaVetor(vetor, vetorCopia, size);
+printf("Executando QuickSort...\n");
+QuickSort(vetorCopia, 0, size - 1); // Ajustado para QuickSort
 }
 
 void limparVetor(int vetor[], int tamanho) {
     memset(vetor, 0, tamanho * sizeof(int));
+}
+
+void copiaVetor(int origem[], int destino[], int size) {
+for (int i = 0; i < size; i++) {
+destino[i] = origem[i];
+}
 }

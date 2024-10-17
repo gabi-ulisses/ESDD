@@ -8,5 +8,7 @@ void InsertionSort(int vetor[], int size);
 void SelectionSort(int vetor[], int size);
 
 void MergeSort(int vetor[], int inicio, int fim, int size);
+void intercala(int vetor[], int inicio, int fim, int meio, int size);
 
-void QuickSort(int vetor[], int size);
+int partition(int vetor[], int low, int high);
+void QuickSort(int vetor[], int low, int high);
