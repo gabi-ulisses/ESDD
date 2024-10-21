@@ -1,56 +1,45 @@
 #include "metodos.h"
-#include <time.h>  
+#include <stdio.h>
+#include <time.h>
 
-void BubbleSort(int vetor[], int size){
-   
+Contagem BubbleSort(int vetor[], int size){
+    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
+
     int i, continua, aux;
-	long long int troca = 0; //
-	long long int comparacoes = 0;
+    continua = 1;
 
     // Inicializa a contagem de tempo
     clock_t inicio = 0, fim = 0;
     double tempo_gasto;
 
-    continua = 1;
-
-	inicio = clock();
+    inicio = clock();
 
     do {
-        continua = 0; 
-        
+        continua = 0;
+
         for (i = 0; i < size - 1; i++) {
+            contagem.comparacoes++;  // Incrementa o contador de comparações
 
-			comparacoes++;
-
-            if (vetor[i] > vetor[i+1]) { 
-
+            if (vetor[i] > vetor[i+1]) {
                 aux = vetor[i];    
                 vetor[i] = vetor[i+1]; 
                 vetor[i+1] = aux;  
-                
-                continua = 1;
 
-                troca++;
+                continua = 1;
+                contagem.trocas++;  // Incrementa o contador de trocas
             }
         }
 
     } while (continua); 
 
-	fim = clock(); 
+    fim = clock();
+    tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
 
-	tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
-
-    printf("\n\nTrocas: %lld | ", troca);
-    printf("Comparações: %lld | ", comparacoes);
-	printf("Tempo de execução: %.5f segundos\n\n", tempo_gasto);
-
+    return contagem;
 }
 
-
-void InsertionSort(int vetor[], int size) {
-
-    long long int comparacoes_insertion = 0;
-    long long int trocas_insertion = 0;
+Contagem InsertionSort(int vetor[], int size) {
+    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
 
     // Inicializa a contagem de tempo
     clock_t inicio = 0, fim = 0;
@@ -62,40 +51,28 @@ void InsertionSort(int vetor[], int size) {
         int chave = vetor[i];
         int j = i - 1;
 
-        // Contabilizando comparações
         while (j >= 0 && vetor[j] > chave) {
-            comparacoes_insertion++;
-            vetor[j + 1] = vetor[j]; // Aqui estamos "trocando"
+            contagem.comparacoes++;  // Comparação dentro do while
+            vetor[j + 1] = vetor[j];  // Desloca o valor maior
             j--;
-            trocas_insertion++;
+            contagem.trocas++;  // Troca (deslocamento)
         }
+        contagem.comparacoes++;  // Comparação que falhou no while
 
-        comparacoes_insertion++; // Comparação que falhou no while
-
-        vetor[j + 1] = chave; // Troca final da chave
-
-        if (j + 1 != i) { // Se houve troca de fato
-            trocas_insertion++;
+        vetor[j + 1] = chave;  // Posiciona a chave
+        if (j + 1 != i) {
+            contagem.trocas++;  // Conta a troca final
         }
     }
-    
-    fim = clock(); 
 
+    fim = clock();
     tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
 
-
-    printf("\n\nTrocas: %lld | ", trocas_insertion);
-    printf("Comparações: %lld | ", comparacoes_insertion);
-    printf("Tempo de execução: %.5f segundos\n\n", tempo_gasto);
-
+    return contagem;
 }
 
-
-
-void SelectionSort(int vetor[], int size) {
-
-    long long int comparacoes_selection = 0;
-    long long int trocas_selection = 0;
+Contagem SelectionSort(int vetor[], int size) {
+    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
 
     // Inicializa a contagem de tempo
     clock_t inicio = 0, fim = 0;
@@ -107,7 +84,7 @@ void SelectionSort(int vetor[], int size) {
         int min_index = i;
 
         for (int j = i + 1; j < size; j++) {
-            comparacoes_selection++;
+            contagem.comparacoes++;  // Conta comparações
             if (vetor[j] < vetor[min_index]) {
                 min_index = j;
             }
@@ -118,172 +95,133 @@ void SelectionSort(int vetor[], int size) {
             int temp = vetor[min_index];
             vetor[min_index] = vetor[i];
             vetor[i] = temp;
-            trocas_selection++;
+            contagem.trocas++;  // Conta trocas
         }
     }
-    
-    fim = clock(); 
 
+    fim = clock();
     tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
 
-    printf("\n\nTrocas: %lld | ", trocas_selection);
-    printf("Comparações: %lld | ", comparacoes_selection);
-    printf("Tempo de execução: %.5f segundos\n\n", tempo_gasto);
-    
+    return contagem;
 }
 
-
-
-int partition(int vetor[], int low, int high) {
-
-    long long int comparacoes_quick = 0;
-    long long int trocas_quick = 0;
-
+Contagem partition(int vetor[], int low, int high) {
+    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
     int pivot = vetor[high];
     int i = (low - 1);
 
-    for (int j = low; j < high; j++) {
-        comparacoes_quick++;
-
+    for (int j = low; j <= high - 1; j++) {
+        contagem.comparacoes++;
         if (vetor[j] < pivot) {
             i++;
             int temp = vetor[i];
             vetor[i] = vetor[j];
             vetor[j] = temp;
-            trocas_quick++;
+            contagem.trocas++;
         }
     }
 
     int temp = vetor[i + 1];
     vetor[i + 1] = vetor[high];
     vetor[high] = temp;
-    trocas_quick++;
+    contagem.trocas++;
 
-    return (i + 1);
+    return contagem;
 }
 
-void QuickSort(int vetor[], int low, int high) {
+Contagem QuickSort(int vetor[], int low, int high) {
+    Contagem contagem_total = {0, 0};  // Inicializa comparações e trocas
+
     if (low < high) {
-        int pi = partition(vetor, low, high);
-        QuickSort(vetor, low, pi - 1);
-        QuickSort(vetor, pi + 1, high);
+        // Chama partition e recebe a contagem
+        Contagem contagem_partition = partition(vetor, low, high);
+        contagem_total.comparacoes += contagem_partition.comparacoes;
+        contagem_total.trocas += contagem_partition.trocas;
+
+        // Calcula o índice do pivot
+        int pi = low + contagem_partition.comparacoes; // Corrigido para usar a contagem
+
+        // Chama recursivamente para as duas metades
+        Contagem contagem_esq = QuickSort(vetor, low, pi - 1);
+        Contagem contagem_dir = QuickSort(vetor, pi + 1, high);
+
+        // Acumula as contagens das chamadas recursivas
+        contagem_total.comparacoes += contagem_esq.comparacoes + contagem_dir.comparacoes;
+        contagem_total.trocas += contagem_esq.trocas + contagem_dir.trocas;
     }
+
+    return contagem_total; // Retorna contagem total
 }
 
-int comparacoes_merge = 0;
-int trocas_merge = 0;
-
-void MergeSort(int vetor[], int inicio, int fim, int size) {
-    
-    if (inicio < fim) {
-        comparacoes_merge++;
-        int meio = (inicio + fim) / 2;
-        MergeSort(vetor, inicio, meio, size);
-        MergeSort(vetor, meio + 1, fim, size);
-        intercala(vetor, inicio, fim, meio, size);
-    }   
-}
-
-void intercala(int vetor[], int inicio, int fim, int meio, int size) {
-
+Contagem intercala(int vetor[], int inicio, int fim, int meio, int size) {
+    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
     int i, j, k;
     int n1 = meio - inicio + 1;
     int n2 = fim - meio;
 
+    // Vetores temporários
     int L[n1], R[n2];
 
-    for (i = 0; i < n1; i++){
+    // Copiando dados para os vetores temporários
+    for (i = 0; i < n1; i++) {
         L[i] = vetor[inicio + i];
     }
-
-    for (j = 0; j < n2; j++){
+    for (j = 0; j < n2; j++) {
         R[j] = vetor[meio + 1 + j];
     }
 
+    // Mesclando os vetores temporários de volta no vetor principal
     i = 0;
     j = 0;
     k = inicio;
 
     while (i < n1 && j < n2) {
-
-        comparacoes_merge++;
-
+        contagem.comparacoes++;
         if (L[i] <= R[j]) {
             vetor[k] = L[i];
             i++;
         } else {
             vetor[k] = R[j];
             j++;
-            trocas_merge++;
         }
-
+        contagem.trocas++;
         k++;
     }
 
+    // Copia os elementos restantes de L[], se houver
     while (i < n1) {
         vetor[k] = L[i];
         i++;
         k++;
+        contagem.trocas++;
     }
 
+    // Copia os elementos restantes de R[], se houver
     while (j < n2) {
         vetor[k] = R[j];
         j++;
         k++;
+        contagem.trocas++;
     }
+
+    return contagem;
 }
 
-/*
-void MergeSort(int vetor[], int inicio, int fim, int size){
-	int meio;
-	long long	int meio;
+Contagem MergeSort(int vetor[], int inicio, int fim, int size) {
+    Contagem contagem_total = {0, 0};  // Inicializa comparações e trocas
 
-	if(inicio < fim){
-		comparacoes++;
-		meio = (inicio + fim) / 2;
-		MergeSort(vetor, inicio, meio, size);
-		MergeSort(vetor, meio+1, fim, size);
-		intercala(vetor, inicio, fim, meio, size);
-	}
+    if (inicio < fim) {
+        int meio = (inicio + fim) / 2;
+
+        // Chamada recursiva para as duas metades
+        Contagem contagem_esq = MergeSort(vetor, inicio, meio, size);
+        Contagem contagem_dir = MergeSort(vetor, meio + 1, fim, size);
+        Contagem contagem_inter = intercala(vetor, inicio, fim, meio, size);
+
+        // Soma as contagens de comparações e trocas
+        contagem_total.comparacoes = contagem_esq.comparacoes + contagem_dir.comparacoes + contagem_inter.comparacoes;
+        contagem_total.trocas = contagem_esq.trocas + contagem_dir.trocas + contagem_inter.trocas;
+    }
+
+    return contagem_total;
 }
-
-void intercala(int vetor[], int inicio, int fim, int meio, int size){
-
-	int pos_livre, inicio_arquivo1, inicio_arquivo2, i;
-	int arquivo_aux[size];
-	int troca = 0;
-
-	inicio_arquivo1 = inicio;
-	inicio_arquivo2 = meio + 1;
-	pos_livre = inicio;
-
-	while(inicio_arquivo1 <= meio && inicio_arquivo2 <= fim){
-		if(vetor[inicio_arquivo1] <= vetor[inicio_arquivo2]){
-			arquivo_aux[pos_livre] = vetor[inicio_arquivo1];
-			inicio_arquivo1 += 1;
-		} 
-		else
-		{
-			arquivo_aux[pos_livre] = vetor[inicio_arquivo2];
-			inicio_arquivo2 += 1;
-		}
-		pos_livre += 1;
-	}
-	for(i=inicio_arquivo1; i<= meio; i++, pos_livre++){
-		arquivo_aux[pos_livre] = vetor[i];
-	}
-	for(i=inicio_arquivo2; i<= fim; i++, pos_livre++){
-		arquivo_aux[pos_livre] = vetor[i];
-	}
-	for(i=inicio; i <= fim; i++){
-		vetor[i] = arquivo_aux[i];
-	}
-
-	return troca++;
-}
-
-
-void QuickSort(int vetor[], int size){
-
-}
-*/

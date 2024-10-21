@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
-#include "biblioteca/metodos.c"
+#include "biblioteca/metodos.h"
 #include "casos.c"
 
 #define MAX 1000000
 
 void Sort(int vetor[], int tamanho);
-void limparVetor(int vetor[], int tamanho);
 void copiaVetor(int origem[], int destino[], int size);
 
 int main(){
@@ -93,37 +92,63 @@ int main(){
 
 
 void Sort(int vetor[], int size) {
-int vetorCopia[size];
+    int vetorCopia[size];
+    Contagem resultado;
+    clock_t inicio, fim;
+    double tempo_gasto;
 
-// BubbleSort
-copiaVetor(vetor, vetorCopia, size);
-printf("Executando BubbleSort...\n");
-BubbleSort(vetorCopia, size);
+    // BubbleSort
+    copiaVetor(vetor, vetorCopia, size);
+    printf("Executando BubbleSort...\n");
+    inicio = clock();  // Começa a contar o tempo
+    resultado = BubbleSort(vetorCopia, size);
+    fim = clock();  // Termina a contagem do tempo
+    tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("BubbleSort - Trocas: %d | Comparações: %d | Tempo de execução: %.5f segundos\n\n", 
+           resultado.trocas, resultado.comparacoes, tempo_gasto);
 
-// InsertionSort
-copiaVetor(vetor, vetorCopia, size);
-printf("Executando InsertionSort...\n");
-InsertionSort(vetorCopia, size);
+    // InsertionSort
+    copiaVetor(vetor, vetorCopia, size);
+    printf("Executando InsertionSort...\n");
+    inicio = clock();
+    resultado = InsertionSort(vetorCopia, size);
+    fim = clock();
+    tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("InsertionSort - Trocas: %d | Comparações: %d | Tempo de execução: %.5f segundos\n\n", 
+           resultado.trocas, resultado.comparacoes, tempo_gasto);
 
-// SelectionSort
-copiaVetor(vetor, vetorCopia, size);
-printf("Executando SelectionSort...\n");
-SelectionSort(vetorCopia, size);
+    // SelectionSort
+    copiaVetor(vetor, vetorCopia, size);
+    printf("Executando SelectionSort...\n");
+    inicio = clock();
+    resultado = SelectionSort(vetorCopia, size);
+    fim = clock();
+    tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("SelectionSort - Trocas: %d | Comparações: %d | Tempo de execução: %.5f segundos\n\n", 
+           resultado.trocas, resultado.comparacoes, tempo_gasto);
 
-// MergeSort
-copiaVetor(vetor, vetorCopia, size);
-printf("Executando MergeSort...\n");
-MergeSort(vetorCopia, 0, size - 1, size);
+    // MergeSort
+    copiaVetor(vetor, vetorCopia, size);
+    printf("Executando MergeSort...\n");
+    inicio = clock();
+    resultado = MergeSort(vetorCopia, 0, size - 1, size);
+    fim = clock();
+    tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("MergeSort - Trocas: %d | Comparações: %d | Tempo de execução: %.5f segundos\n\n", 
+           resultado.trocas, resultado.comparacoes, tempo_gasto);
 
-// QuickSort
-copiaVetor(vetor, vetorCopia, size);
-printf("Executando QuickSort...\n");
-QuickSort(vetorCopia, 0, size - 1); // Ajustado para QuickSort
+    // QuickSort
+    copiaVetor(vetor, vetorCopia, size);
+    printf("Executando QuickSort...\n");
+    inicio = clock();
+    resultado = QuickSort(vetorCopia, 0, size - 1);
+    fim = clock();
+    tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("QuickSort - Trocas: %d | Comparações: %d | Tempo de execução: %.5f segundos\n\n", 
+           resultado.trocas, resultado.comparacoes, tempo_gasto);
 }
 
-void limparVetor(int vetor[], int tamanho) {
-    memset(vetor, 0, tamanho * sizeof(int));
-}
+
 
 void copiaVetor(int origem[], int destino[], int size) {
 for (int i = 0; i < size; i++) {

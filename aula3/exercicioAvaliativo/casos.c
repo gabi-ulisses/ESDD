@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <time.h>
-#include "biblioteca/metodos.h"
+#include "biblioteca/metodos.c"
 
 void preencherMelhorCaso(int vetor[], int size){
 
