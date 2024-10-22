@@ -13,7 +13,7 @@ Contagem InsertionSort(int vetor[], int size);
 Contagem SelectionSort(int vetor[], int size);
 Contagem MergeSort(int vetor[], int inicio, int fim, int size);
 Contagem intercala(int vetor[], int inicio, int fim, int meio, int size);
-Contagem partition(int vetor[], int low, int high);
-Contagem QuickSort(int vetor[], int low, int high);
+Contagem QuickSort(int vetor[], int inicio, int fim);
+Contagem particao(int vetor[], int inicio, int fim);
 
 #endif // METODOS_H

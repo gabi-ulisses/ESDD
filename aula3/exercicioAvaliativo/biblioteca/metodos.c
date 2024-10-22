@@ -1,84 +1,63 @@
 #include "metodos.h"
 #include <stdio.h>
-#include <time.h>
 
 Contagem BubbleSort(int vetor[], int size){
-    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
 
-    int i, continua, aux;
-    continua = 1;
+    Contagem contagem = {0, 0};  
 
-    // Inicializa a contagem de tempo
-    clock_t inicio = 0, fim = 0;
-    double tempo_gasto;
-
-    inicio = clock();
+    int i, aux;
+    int continua = 1;
 
     do {
         continua = 0;
 
         for (i = 0; i < size - 1; i++) {
-            contagem.comparacoes++;  // Incrementa o contador de comparações
+
+            contagem.comparacoes++; 
 
             if (vetor[i] > vetor[i+1]) {
                 aux = vetor[i];    
                 vetor[i] = vetor[i+1]; 
                 vetor[i+1] = aux;  
 
+                contagem.trocas++;
                 continua = 1;
-                contagem.trocas++;  // Incrementa o contador de trocas
             }
         }
 
-    } while (continua); 
-
-    fim = clock();
-    tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
+    }while (continua); 
 
     return contagem;
 }
 
 Contagem InsertionSort(int vetor[], int size) {
-    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
 
-    // Inicializa a contagem de tempo
-    clock_t inicio = 0, fim = 0;
-    double tempo_gasto;
-
-    inicio = clock();
+    Contagem contagem = {0, 0};      
 
     for (int i = 1; i < size; i++) {
+
         int chave = vetor[i];
         int j = i - 1;
 
         while (j >= 0 && vetor[j] > chave) {
-            contagem.comparacoes++;  // Comparação dentro do while
-            vetor[j + 1] = vetor[j];  // Desloca o valor maior
+            contagem.comparacoes++; 
+            vetor[j + 1] = vetor[j];  
             j--;
-            contagem.trocas++;  // Troca (deslocamento)
+            contagem.trocas++;  
         }
-        contagem.comparacoes++;  // Comparação que falhou no while
+        contagem.comparacoes++;  
 
-        vetor[j + 1] = chave;  // Posiciona a chave
+        vetor[j + 1] = chave; 
         if (j + 1 != i) {
-            contagem.trocas++;  // Conta a troca final
+            contagem.trocas++; 
         }
     }
-
-    fim = clock();
-    tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
 
     return contagem;
 }
 
 Contagem SelectionSort(int vetor[], int size) {
-    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
-
-    // Inicializa a contagem de tempo
-    clock_t inicio = 0, fim = 0;
-    double tempo_gasto;
-
-    inicio = clock();
+    Contagem contagem = {0, 0};  // Inicializa contagem
 
     for (int i = 0; i < size - 1; i++) {
         int min_index = i;
@@ -86,66 +65,37 @@ Contagem SelectionSort(int vetor[], int size) {
         for (int j = i + 1; j < size; j++) {
             contagem.comparacoes++;  // Conta comparações
             if (vetor[j] < vetor[min_index]) {
-                min_index = j;
+                min_index = j; // Atualiza o índice do menor elemento
             }
         }
 
         // Efetuar a troca somente se houver alteração
         if (min_index != i) {
-            int temp = vetor[min_index];
+            int aux = vetor[min_index];
             vetor[min_index] = vetor[i];
-            vetor[i] = temp;
+            vetor[i] = aux;
             contagem.trocas++;  // Conta trocas
         }
     }
 
-    fim = clock();
-    tempo_gasto = ((double)(fim - inicio))/CLOCKS_PER_SEC;
-
-    return contagem;
+    return contagem; // Retorna a contagem
 }
 
-Contagem partition(int vetor[], int low, int high) {
-    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
-    int pivot = vetor[high];
-    int i = (low - 1);
 
-    for (int j = low; j <= high - 1; j++) {
-        contagem.comparacoes++;
-        if (vetor[j] < pivot) {
-            i++;
-            int temp = vetor[i];
-            vetor[i] = vetor[j];
-            vetor[j] = temp;
-            contagem.trocas++;
-        }
-    }
+Contagem QuickSort(int vetor[], int inicio, int fim) {
+    Contagem contagem_total = {0, 0};  
 
-    int temp = vetor[i + 1];
-    vetor[i + 1] = vetor[high];
-    vetor[high] = temp;
-    contagem.trocas++;
+    if (inicio < fim) {
+        Contagem contagem_particao = particao(vetor, inicio, fim);
 
-    return contagem;
-}
+        contagem_total.comparacoes += contagem_particao.comparacoes;
+        contagem_total.trocas += contagem_particao.trocas;
 
-Contagem QuickSort(int vetor[], int low, int high) {
-    Contagem contagem_total = {0, 0};  // Inicializa comparações e trocas
+        int j = inicio + contagem_particao.comparacoes; 
 
-    if (low < high) {
-        // Chama partition e recebe a contagem
-        Contagem contagem_partition = partition(vetor, low, high);
-        contagem_total.comparacoes += contagem_partition.comparacoes;
-        contagem_total.trocas += contagem_partition.trocas;
+        Contagem contagem_esq = QuickSort(vetor, inicio, j - 1);
+        Contagem contagem_dir = QuickSort(vetor, j + 1, fim);
 
-        // Calcula o índice do pivot
-        int pi = low + contagem_partition.comparacoes; // Corrigido para usar a contagem
-
-        // Chama recursivamente para as duas metades
-        Contagem contagem_esq = QuickSort(vetor, low, pi - 1);
-        Contagem contagem_dir = QuickSort(vetor, pi + 1, high);
-
-        // Acumula as contagens das chamadas recursivas
         contagem_total.comparacoes += contagem_esq.comparacoes + contagem_dir.comparacoes;
         contagem_total.trocas += contagem_esq.trocas + contagem_dir.trocas;
     }
@@ -153,8 +103,49 @@ Contagem QuickSort(int vetor[], int low, int high) {
     return contagem_total; // Retorna contagem total
 }
 
+Contagem particao(int vetor[], int inicio, int fim) {
+    Contagem contagem = {0, 0};  
+    int pivot = vetor[fim];
+    int i = (inicio - 1);
+
+    for (int j = inicio; j <= fim - 1; j++) {
+        contagem.comparacoes++;
+        if (vetor[j] < pivot) {
+            i++;
+            int aux = vetor[i];
+            vetor[i] = vetor[j];
+            vetor[j] = aux;
+            contagem.trocas++;
+        }
+    }
+
+    int aux = vetor[i + 1];
+    vetor[i + 1] = vetor[fim];
+    vetor[fim] = aux;
+    contagem.trocas++;
+
+    return contagem;
+}
+
+Contagem MergeSort(int vetor[], int inicio, int fim, int size) {
+    Contagem contagem_total = {0, 0};  
+
+    if (inicio < fim) {
+        int meio = (inicio + fim) / 2;
+
+        Contagem contagem_esq = MergeSort(vetor, inicio, meio, size);
+        Contagem contagem_dir = MergeSort(vetor, meio + 1, fim, size);
+        Contagem contagem_inter = intercala(vetor, inicio, fim, meio, size);
+
+        contagem_total.comparacoes = contagem_esq.comparacoes + contagem_dir.comparacoes + contagem_inter.comparacoes;
+        contagem_total.trocas = contagem_esq.trocas + contagem_dir.trocas + contagem_inter.trocas;
+    }
+
+    return contagem_total;
+}
+
 Contagem intercala(int vetor[], int inicio, int fim, int meio, int size) {
-    Contagem contagem = {0, 0};  // Inicializa comparações e trocas
+    Contagem contagem = {0, 0};  
     int i, j, k;
     int n1 = meio - inicio + 1;
     int n2 = fim - meio;
@@ -207,21 +198,3 @@ Contagem intercala(int vetor[], int inicio, int fim, int meio, int size) {
     return contagem;
 }
 
-Contagem MergeSort(int vetor[], int inicio, int fim, int size) {
-    Contagem contagem_total = {0, 0};  // Inicializa comparações e trocas
-
-    if (inicio < fim) {
-        int meio = (inicio + fim) / 2;
-
-        // Chamada recursiva para as duas metades
-        Contagem contagem_esq = MergeSort(vetor, inicio, meio, size);
-        Contagem contagem_dir = MergeSort(vetor, meio + 1, fim, size);
-        Contagem contagem_inter = intercala(vetor, inicio, fim, meio, size);
-
-        // Soma as contagens de comparações e trocas
-        contagem_total.comparacoes = contagem_esq.comparacoes + contagem_dir.comparacoes + contagem_inter.comparacoes;
-        contagem_total.trocas = contagem_esq.trocas + contagem_dir.trocas + contagem_inter.trocas;
-    }
-
-    return contagem_total;
-}
