@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/serviceup/Documents/ifsp/estrutura-de-dados/aula3/exercicioAvaliativo",
+      "program": "${workspaceFolder}/build/Debug/outDebug" // Ou ${workspaceFolder}/main se o nome for main
+    }
+  ]
+}
