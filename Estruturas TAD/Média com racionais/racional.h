@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 typedef struct racional * T_racional;
 
 T_racional criarRacional(int numerador, int denominador);
