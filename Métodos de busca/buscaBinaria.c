@@ -23,7 +23,7 @@ int busca(int val, int lista[14]) {
 
 int main() {
     int lista[14] = {5, 18, 27, 33, 44, 49, 54, 67, 69, 72, 79, 86, 87, 92};
-    int resultado = busca(78, lista);
+    int resultado = busca(79, lista);
 
     if (resultado != -1) {
         printf("Valor encontrado no índice: %d\n", resultado);
