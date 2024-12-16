@@ -1,4 +1,4 @@
-#include "stack_impl.c"
+#include "stack_arr.h"
 #include <stdio.h>
 
 int main(){
@@ -14,7 +14,7 @@ int main(){
         }
     }
 
-    int dado;
+    T_Info dado;
 
     while (!isEmpty(pilha)){
         if(pop(pilha, &dado)){

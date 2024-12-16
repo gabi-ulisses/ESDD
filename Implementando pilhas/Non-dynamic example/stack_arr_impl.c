@@ -1,22 +1,25 @@
-#include "stack.h"
+#include "stack_arr.h"
+#define MAXSIZE 100
 
+/*
+* Struct não dinâmico
+*/
 struct stack {
     int top;
-    T_Info* elements;
     int maxsize;
+    T_Info elements[MAXSIZE]; 
 };
 
 T_Stack init(int maxsize){
     T_Stack stack = NULL;
     if(maxsize > 0){
-        stack = malloc(sizeof(struct stack));
-        if (stack != NULL){
+        stack = malloc(sizeof(struct stack)); 
+        if (stack != NULL){ 
             stack->top = -1; 
-            stack->maxsize = maxsize;
-            stack->elements = malloc(sizeof(T_Info) * maxsize);
-            if (stack->elements == NULL){ 
-                free(stack);
-                stack = NULL;
+            if (maxsize > MAXSIZE){
+                stack->maxsize = MAXSIZE;
+            }else{
+                stack->maxsize = maxsize;
             }
         }
     }
@@ -60,6 +63,8 @@ bool pop(T_Stack stack, T_Info* element){
 }
 
 void destroy(T_Stack stack) {
-    free(stack->elements);
-    free(stack);
+    if (stack != NULL){
+        free(stack);
+        stack = NULL; // Evitar acessos a ponteiros de memória liberada
+    }
 }
