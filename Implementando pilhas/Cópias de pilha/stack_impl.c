@@ -6,8 +6,8 @@ struct stack {
     T_Info* elements; 
 };
 
-T_Stack init(int maxsize){
-    T_Stack stack = NULL;
+Pilha init(int maxsize){
+    Pilha stack = NULL;
     if(maxsize > 0){
         stack = malloc(sizeof(struct stack)); 
         if (stack != NULL){ 
@@ -23,7 +23,7 @@ T_Stack init(int maxsize){
     return stack;
 }
 
-bool isFull(T_Stack stack){
+bool isFull(Pilha stack){
     if (stack == NULL){
         return false;
     }
@@ -31,14 +31,14 @@ bool isFull(T_Stack stack){
     return stack->top == stack->maxsize - 1; // Se o topo for igual ao tamanho da pilha -1...a pilha está cheia
 }
 
-bool isEmpty(T_Stack stack){
+bool isEmpty(Pilha stack){
    if (stack != NULL){
         return stack->top == -1; //  Se o topo for -1 a pilha está vazia (pois -1 é a nossa posição inicial)...
    }
    return false;
 }
 
-bool push(T_Stack stack, T_Info element){
+bool push(Pilha stack, T_Info element){
     if (stack != NULL){
         if (!isFull(stack)){ // Se a stack NÃO estiver cheia...
            stack->top += 1;
@@ -49,7 +49,7 @@ bool push(T_Stack stack, T_Info element){
     return false;
 }
 
-bool pop(T_Stack stack, T_Info* element){
+bool pop(Pilha stack, T_Info* element){
     if (stack != NULL){
         if (!isEmpty(stack)){ // Se a stack NÃO estiver vazia...
             *element = stack->elements[stack->top];
@@ -60,7 +60,7 @@ bool pop(T_Stack stack, T_Info* element){
     return false;
 }
 
-void destroy(T_Stack stack) {
+void destroy(Pilha stack) {
     free(stack->elements);
     free(stack);
 }
