@@ -16,3 +16,5 @@ As operações fundamentais em uma pilha são:
 
 
 _Embora `destroy` não esteja diretamente envolvido na manipulação dos dados armazenados na pilha, ela é crucial para o gerenciamento eficiente de recursos, especialmente em programas de longa duração ou que manipulam muitas pilhas._
+
+_**Qualquer algoritmo recursivo** é uma pilha implícita. Por exemplo, os algoritmos de ordenação **Merge Sort** e **Quick Sort** usam a recursão para dividir e conquistar o problema de ordenação. A pilha de chamadas gerencia as chamadas recursivas, empilhando cada chamada até que a condição base seja atingida e, então, desempilhando à medida que as chamadas retornam._
