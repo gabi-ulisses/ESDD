@@ -49,8 +49,10 @@ int main() {
             }
 
             if (encontrada == 0) {
-                strcpy(palavras[quantidadePalavras], token);
-                quantidadePalavras++;
+                if (quantidadePalavras < 1000) {
+                    strcpy(palavras[quantidadePalavras], token);
+                    quantidadePalavras++;
+                }
             }
 
             token = strtok(NULL, " ");
