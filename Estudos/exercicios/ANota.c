@@ -1,6 +1,7 @@
 #include <stdio.h>
+#define MODULO 1000000007
 
-void merge(int array[], int inicio, int meio, int fim) {
+void combinar(int array[], int inicio, int meio, int fim) {
     int tamanhoEsquerda = meio - inicio + 1;
     int tamanhoDireita = fim - meio;
 
@@ -39,33 +40,34 @@ void merge(int array[], int inicio, int meio, int fim) {
     }
 }
 
-void mergeSort(int array[], int inicio, int fim) {
+void ordenar(int array[], int inicio, int fim) {
     if (inicio < fim) {
         int meio = inicio + (fim - inicio) / 2;
 
-        mergeSort(array, inicio, meio);
-        mergeSort(array, meio + 1, fim);
+        ordenar(array, inicio, meio);
+        ordenar(array, meio + 1, fim);
 
-        merge(array, inicio, meio, fim);
+        combinar(array, inicio, meio, fim);
     }
 }
 
 int main() {
-    int n, k, vetor[1000000];
+    int quantidadeNumeros, somaMaxima;
+    int numeros[1000000];
 
-    while (scanf("%d %d", &n, &k) != EOF && k > 0) {
-        for (int i = 0; i < n; i++) {
-            scanf("%d", &vetor[i]);
+    while (scanf("%d%d", &quantidadeNumeros, &somaMaxima) != EOF && somaMaxima > 0) {
+        for (int i = 0; i < quantidadeNumeros; i++) {
+            scanf("%d", &numeros[i]);
         }
 
-        mergeSort(vetor, 0, n - 1);
+        ordenar(numeros, 0, quantidadeNumeros - 1);
 
-        int soma = 0;
-        for (int i = 0; i < k; i++) {
-            soma += vetor[i];
+        int somaFinal = 0;
+        for (int i = 0; i < somaMaxima; i++) {
+            somaFinal = (somaFinal + numeros[i]) % MODULO;
         }
 
-        printf("%d\n", soma);
+        printf("%d\n", somaFinal);
     }
 
     return 0;
