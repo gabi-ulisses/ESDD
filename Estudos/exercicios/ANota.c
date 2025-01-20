@@ -52,7 +52,6 @@ void mergeSort(int array[], int inicio, int fim) {
 
 int main() {
     int n, k, vetor[1000000];
-    const int MODULO = 1000000007;
 
     while (scanf("%d %d", &n, &k) != EOF && k > 0) {
         for (int i = 0; i < n; i++) {
@@ -63,7 +62,7 @@ int main() {
 
         int soma = 0;
         for (int i = 0; i < k; i++) {
-            soma = (soma + vetor[i]) % MODULO;
+            soma += vetor[i];
         }
 
         printf("%d\n", soma);
