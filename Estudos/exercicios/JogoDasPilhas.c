@@ -99,6 +99,7 @@ int main() {
             empilhar(&pilha3, C);
         }
         
+        // Verifica se o jogador pode vencer o jogo
         if (jogoVencido(&pilha1, &pilha2, &pilha3)) {
             printf("1\n");
         } else {
