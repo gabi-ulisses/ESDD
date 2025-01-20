@@ -93,3 +93,22 @@ int main() {
         
         for (int i = 0; i < N; i++) {
             int A, B, C;
+            scanf("%d %d %d", &A, &B, &C);
+            empilhar(&pilha1, A);
+            empilhar(&pilha2, B);
+            empilhar(&pilha3, C);
+        }
+        
+        if (jogoVencido(&pilha1, &pilha2, &pilha3, N)) {
+            printf("1\n");
+        } else {
+            printf("0\n");
+        }
+
+        destruirPilha(&pilha1);
+        destruirPilha(&pilha2);
+        destruirPilha(&pilha3);
+    }
+
+    return 0;
+}
