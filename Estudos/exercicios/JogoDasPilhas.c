@@ -72,7 +72,7 @@ int podeRemover(Pilha* pilha1, Pilha* pilha2, Pilha* pilha3) {
     return 0;
 }
 
-int jogoVencido(Pilha* pilha1, Pilha* pilha2, Pilha* pilha3, int N) {
+int jogoVencido(Pilha* pilha1, Pilha* pilha2, Pilha* pilha3) {
     // Enquanto houver cartas nas pilhas, tenta remover as combinações válidas
     while (!vazia(pilha1) || !vazia(pilha2) || !vazia(pilha3)) {
         if (!podeRemover(pilha1, pilha2, pilha3)) {
@@ -99,7 +99,7 @@ int main() {
             empilhar(&pilha3, C);
         }
         
-        if (jogoVencido(&pilha1, &pilha2, &pilha3, N)) {
+        if (jogoVencido(&pilha1, &pilha2, &pilha3)) {
             printf("1\n");
         } else {
             printf("0\n");
