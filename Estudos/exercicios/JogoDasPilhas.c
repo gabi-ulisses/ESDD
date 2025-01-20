@@ -37,13 +37,15 @@ void destruirPilha(Pilha* pilha) {
 
 int podeRemover(Pilha* pilha1, Pilha* pilha2, Pilha* pilha3) {
     int t1 = topo(pilha1), t2 = topo(pilha2), t3 = topo(pilha3);
-    // Verifica se a soma de qualquer combinação de cartas é múltiplo de 3
+    
+    // Verifica se alguma combinação de cartas no topo é múltiplo de 3
     if (t1 != -1 && (t1 % 3 == 0)) return 1;
     if (t2 != -1 && (t2 % 3 == 0)) return 1;
     if (t3 != -1 && (t3 % 3 == 0)) return 1;
     if (t1 != -1 && t2 != -1 && (t1 + t2) % 3 == 0) return 1;
     if (t2 != -1 && t3 != -1 && (t2 + t3) % 3 == 0) return 1;
     if (t1 != -1 && t2 != -1 && t3 != -1 && (t1 + t2 + t3) % 3 == 0) return 1;
+    
     return 0;
 }
 
@@ -51,6 +53,8 @@ int jogoVencido(Pilha* pilha1, Pilha* pilha2, Pilha* pilha3, int N) {
     while (N > 0) {
         if (podeRemover(pilha1, pilha2, pilha3)) {
             int t1 = topo(pilha1), t2 = topo(pilha2), t3 = topo(pilha3);
+            
+            // Prioridade para retirar as cartas do topo se for múltiplo de 3
             if (t1 != -1 && t1 % 3 == 0) {
                 desempilhar(pilha1);
             } else if (t2 != -1 && t2 % 3 == 0) {
