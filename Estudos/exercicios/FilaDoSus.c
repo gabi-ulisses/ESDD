@@ -7,7 +7,7 @@ typedef struct {
 } Paciente;
 
 int tempoEmMinutos(int hora, int minuto) {
-    return hora * 60 + minuto;
+    return (hora - 7) * 60 + minuto;
 }
 
 int main() {
@@ -17,30 +17,26 @@ int main() {
         Paciente pacientes[N];
         int criticos = 0;
         
-        // Leitura dos pacientes
         for (int i = 0; i < N; i++) {
             scanf("%d %d %d", &pacientes[i].hora, &pacientes[i].minuto, &pacientes[i].critico);
         }
         
-        int tempoAtual = 7 * 60; // A triagem começa às 7h da manhã em minutos
+        int tempoAtual = 0;
         for (int i = 0; i < N; i++) {
             int chegada = tempoEmMinutos(pacientes[i].hora, pacientes[i].minuto);
             int critico = pacientes[i].critico;
             
-            // Verificar se o paciente atingiu a condição crítica enquanto espera
-            if (chegada + critico > tempoAtual) {
-                criticos++;
-            }
-            
-            // O atendimento é feito a cada 30 minutos
             while (tempoAtual < chegada) {
                 tempoAtual += 30;
             }
-            
+
+            if (tempoAtual > chegada + critico) {
+                criticos++;
+            }
+
             tempoAtual += 30;
         }
         
-        // Resultado para o caso atual
         printf("%d\n", criticos);
     }
     
