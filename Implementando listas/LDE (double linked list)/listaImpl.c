@@ -105,3 +105,20 @@ Info getIntoAt(List list, int position){
     }
     return NULL;
 }
+
+
+int size(List list){
+    if (list != NULL){
+        if (!isEmpty(list)){
+            int counter = 1;
+            NodePtr walker = list->head;
+            while (getNext(walker) != list->head){
+               counter += 1;
+               walker = getNext(walker);
+            }
+            return counter;
+        }
+        
+    }
+    
+}

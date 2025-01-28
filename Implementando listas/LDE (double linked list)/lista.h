@@ -14,3 +14,5 @@ bool insertAtBeggining(List list, Info element);
 bool isEmpty(List list);
 
 Info getIntoAt(List list, int position);
+
+int size(List list);
