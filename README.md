@@ -1,2 +1,2 @@
-# Estrutura de Dados
-Disciplina "Estrutura de Dados (ESDD)", ofertada durante o curso de Tecnologia em Sistemas para Internet - IFSP Campus Araraquara
+# Estrutura de Dados (ESDD)
+Atividades e projetos desenvolvidos durante a disciplina "Estrutura de Dados", no curso superior em Sistemas para Internet.
